@@ -1,0 +1,70 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQLMap Web UI</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            color: #38bdf8;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #38bdf8;
+            color: black;
+            cursor: pointer;
+        }
+        pre {
+            margin-top: 20px;
+            background: black;
+            padding: 15px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🚀 SQLMap Web Interface</h1>
+
+<input id="command" placeholder="Masukkan command sqlmap...">
+<button onclick="runCommand()">Run</button>
+
+<pre id="output">Output akan muncul di sini...</pre>
+
+<script>
+function runCommand() {
+    const cmd = document.getElementById('command').value;
+
+    fetch('/run', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ command: cmd })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('output').innerText = data.output;
+    });
+}
+</script>
+
+</body>
+</html>
